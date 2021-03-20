@@ -87,17 +87,6 @@ SOCKET ServerSocketInit(char* ip, char *port)
     return ListenSocket;
 }
 
-/// <summary>
-/// Initializes a server data parameter structure for use 
-/// </summary>
-/// <param name="SendResponse"> - Do you require a response sent to the connecting client</param>
-/// <param name="WaitForLargeBuffer">: 
-///  <param> False - individual sends under 1024 size, True - Similar to recvall function
-///  </param>
-/// </param>
-/// <param name="func">ProcessData Function pointer</param>
-/// <param name="client_sock"></param>
-/// <returns>NULL on error</returns>
 PSERVERPARAM ServerDataInit(BOOL SendResponse, BOOL WaitForLargeBuffer, ProcessData func, SOCKET client_sock)
 {
     if (INVALID_SOCKET == client_sock) return NULL;
@@ -160,11 +149,6 @@ BOOL ServerDataDestroy(PSERVERPARAM ServerData)
     return retVal;
 }
 
-/// <summary>
-/// Recvs data from client specified by the socket into the buffer 
-/// </summary>
-/// <param name="serverParam">- Parameter as a PSERVERPARAM</param>
-/// <returns></returns>
 DWORD WINAPI HandleConnection(LPVOID serverParam)
 {    
     // Input validation 
