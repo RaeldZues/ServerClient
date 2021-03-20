@@ -20,13 +20,6 @@ static void InitWSA()
     }
 }
 
-/// <summary>
-/// Initialize a server socket on a port and ip provided 
-/// <para>Note: Currently supports hard coded setup and not dynamic</para>
-/// </summary>
-/// <param name="ip">- <para>Currently only accepting IPv4 addresses</para></param>
-/// <param name="port">- Port to Bind to</param>
-/// <returns>INVALID_SOCKET on error</returns>
 SOCKET ServerSocketInit(char* ip, char *port)
 {
     struct addrinfo *result = NULL;
@@ -101,7 +94,7 @@ PSERVERPARAM ServerDataInit(BOOL SendResponse, BOOL WaitForLargeBuffer, ProcessD
         return NULL;
     }
     ServerData->ClientDataMutex = hMutex;
-    // Intentionally not allocated for allocation in the recv func 
+    // Intentionally not allocated for buffer in the recv func 
     WSABUF *recvData = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(WSABUF));
     if (!recvData)
     {
@@ -152,6 +145,7 @@ BOOL ServerDataDestroy(PSERVERPARAM ServerData)
 DWORD WINAPI HandleConnection(LPVOID serverParam)
 {    
     // Input validation 
+    // TODO: Add better input validation after casting
     PSERVERPARAM ServerData = (PSERVERPARAM)serverParam;
     if (ServerData->ClientSock == SOCKET_ERROR)
     {
@@ -246,7 +240,7 @@ DWORD WINAPI HandleConnection(LPVOID serverParam)
             // If what i recieved total is less than my overall buffer, shove into buffer 
             if (total > CurrSize)
             {
-                DbgPrintErr(L"Reallocating Bitches\n");
+                DbgPrintErr(L"Reallocating Buffer size\n");
                 char* tmp = HeapReAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, buffer, (SIZE_T)CurrSize * 2);
                 if (NULL == tmp)
                 {
@@ -324,6 +318,7 @@ DWORD WINAPI HandleConnection(LPVOID serverParam)
         ServerData->TerminateConnection = TRUE;
     }
     WSACloseEvent(RecvOverlapped.hEvent);
+    // TODO: Move this out of the handle connection due to Single Resp Princ.
     ServerDataDestroy(ServerData);
     DbgPrintErr(L"Shutting down client socket\n");
     

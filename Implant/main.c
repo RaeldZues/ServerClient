@@ -7,10 +7,10 @@
 
 
 // Sample process data function 
-BOOL procData(PSERVERPARAM Sparam)
+BOOL procData(PSERVERPARAM pServerParam)
 {
     // Process single send and exit 
-    return ExecuteCommand(Sparam);
+    return ExecuteCommand(pServerParam);
 
 }
 
