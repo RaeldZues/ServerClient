@@ -10,7 +10,7 @@ typedef struct _SERVERPARAM {
     SOCKET ClientSock;         // Client socket for return data 
     // Future usages for locking data while processing 
     PHANDLE ClientDataMutex;   // Mutex - Currently unused 
-    WSABUF* ClientData;        // WSABUF for data storage 
+    WSABUF* ClientData;        // WSABUF for data storage using char pointer as data type 
     ProcessData ProcessBuffer; // Function ptr to process the data recieved      
     // TODO: Note this can be determined in line as well which might need to change 
     BOOL WaitForLargeBuffer;   // Should the server recieve and reallocate a large buffer 
