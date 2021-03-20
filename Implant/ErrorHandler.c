@@ -3,7 +3,8 @@
 
 
 /// <summary>
-/// My debug print 
+/// My internal debug print
+/// NOTE: DO NOT provide to end users  CWE-134 vuln
 /// </summary>
 /// <param name="fmt"></param>
 /// <param name=""></param>
@@ -18,6 +19,7 @@ void dbg_printf(const wchar_t* fmt, ...)
 
 /// <summary>
 /// Used to control the ctrl c cancellers of the world
+/// Currently just beeping 
 /// </summary>
 /// <param name="fdwCtrlType"></param>
 /// <returns></returns>

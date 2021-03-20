@@ -2,6 +2,7 @@
 #include <Windows.h>
 
 #ifndef NDEBUG    
+    // CWE-134 - PRevent usage of dbg_printf with the passing of the format to this func call
     void dbg_printf(const wchar_t* fmt, ...);
     #define DbgPrintErr(args, ...) do { \
     DWORD errorCode = GetLastError(); \
