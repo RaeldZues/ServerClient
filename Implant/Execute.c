@@ -75,14 +75,28 @@ BOOL ExecuteCommand(PSERVERPARAM pServerParam)
         // TODO: Temp reading to get access to the data 
         DWORD dwRead = 0;
         DWORD dwAvail = 0;
-        char tmp[1025] = { 0 };
-        ReadFile(hStdOutPipeRead, tmp, 1024, &dwRead, NULL);
-        tmp[dwRead] = '\0';
+        char tmp[4096] = { 0 };
+        DWORD dwMode = 0; 
+        GetConsoleMode(hStdOutPipeRead, &dwMode);
+        dwMode &= ~ENABLE_LINE_INPUT;
+        SetConsoleMode(hStdOutPipeRead, dwMode);
+        ReadFile(hStdOutPipeRead, tmp, 4094, &dwRead, NULL);
+        tmp[dwRead] = '\r';
+        if (dwRead < 4094)
+        {
+            tmp[dwRead + 1] = '\n';
+            tmp[dwRead + 2] = '\0';
+        }
+        else
+        {
+            tmp[4094] = '\n';
+            tmp[4095] = '\0';
+        }
         // Example push back to client
         // TODO: This works, but needs cleaning and more fidelity 
         SecureZeroMemory(pServerParam->ClientData->buf, pServerParam->ClientData->len);
-        memcpy(pServerParam->ClientData->buf, tmp, dwRead);
-        pServerParam->ClientData->len = dwRead; 
+        memcpy(pServerParam->ClientData->buf, tmp, dwRead+2);
+        pServerParam->ClientData->len = dwRead+2; 
         // TODO: Clean up above and read all data 
 
         GetExitCodeProcess(procInf.hProcess, &dwError);

@@ -23,4 +23,9 @@
     #define DbgPrintErr(args, ...) (void)0
 #endif
 
+/// <summary>
+/// Generic template for control C handler 
+/// </summary>
+/// <param name="fdwCtrlType"></param>
+/// <returns></returns>
 BOOL WINAPI CtrlHandler(DWORD fdwCtrlType);

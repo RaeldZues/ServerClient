@@ -7,7 +7,7 @@
 
 
 // Sample process data function 
-BOOL procData(PSERVERPARAM pServerParam)
+BOOL WINAPI procData(PSERVERPARAM pServerParam)
 {
     // Process single send and exit 
     return ExecuteCommand(pServerParam);

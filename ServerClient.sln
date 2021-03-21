@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Implant", "Implant\Server.v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{08885386-A1A7-4B0B-A240-ED7768A04713}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImplantTesting", "ImplantTesting\ImplantTesting.vcxproj", "{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{08885386-A1A7-4B0B-A240-ED7768A04713}.Release|x64.Build.0 = Release|x64
 		{08885386-A1A7-4B0B-A240-ED7768A04713}.Release|x86.ActiveCfg = Release|Win32
 		{08885386-A1A7-4B0B-A240-ED7768A04713}.Release|x86.Build.0 = Release|Win32
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Debug|x64.ActiveCfg = Debug|x64
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Debug|x64.Build.0 = Debug|x64
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Debug|x86.ActiveCfg = Debug|Win32
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Debug|x86.Build.0 = Debug|Win32
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Release|x64.ActiveCfg = Release|x64
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Release|x64.Build.0 = Release|x64
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Release|x86.ActiveCfg = Release|Win32
+		{31D6DEBA-82AA-4F98-BE67-950ACD6DDD72}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
