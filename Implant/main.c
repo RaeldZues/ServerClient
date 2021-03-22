@@ -7,17 +7,18 @@
 
 
 // Sample process data function 
-BOOL procData(PSERVERPARAM Sparam)
+BOOL WINAPI procData(PSERVERPARAM pServerParam)
 {
     // Process single send and exit 
-    return ExecuteCommand(Sparam);
+    return ExecuteCommand(pServerParam);
 
 }
 
-/*
- * Initializes server components and begins serving client in a loop
- * @returns int exit status
- */
+/// <summary>
+/// Temporary sample usage of my execution does not clean up properly or use proper threading techniques 
+/// </summary>
+/// <param name=""></param>
+/// <returns></returns>
 int __cdecl main(void)
 {
 
@@ -29,8 +30,8 @@ int __cdecl main(void)
         DWORD retval = EXIT_SUCCESS;
         SOCKET server_sock = INVALID_SOCKET;
         HANDLE thread = NULL;
-
         DWORD tid = 0;
+
         // Initialize WSA and server socket 
         server_sock = ServerSocketInit(NULL, SERVER_PORT);
         if (server_sock == INVALID_SOCKET)
@@ -53,14 +54,14 @@ int __cdecl main(void)
                 break;
             }
 
+            // TODO: In real code, ensure to clean each instance of the server data up after the threading usage, this is just a sample 
             PSERVERPARAM ServerData = ServerDataInit(TRUE, FALSE, &procData, client_sock);
             if (NULL == ServerData)
             {
                 retval = EXIT_FAILURE;
                 break;
             }
-                
-            
+
             // Create new thread worker for the connection accepted 
             thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)HandleConnection, (LPVOID)ServerData, 0, &tid);
             if (thread == NULL)
@@ -75,7 +76,6 @@ int __cdecl main(void)
         // Should this be closed here or just waited on later?
         CloseHandle(thread);
         DbgPrintErr(L"CLOSING\n");
-
         closesocket(server_sock);
         WSACleanup();
         ExitProcess(retval);
